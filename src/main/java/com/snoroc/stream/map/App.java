@@ -1,9 +1,12 @@
-package com.snoroc.stream.filter;
+package com.snoroc.stream.map;
 
 import com.snoroc.stream.model.Card;
 import com.snoroc.stream.model.TypeCard;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class App {
@@ -11,27 +14,21 @@ public class App {
     public static void main(String[] args) {
 
         getCards().stream()
-                .filter(card -> card.getTypeCard().equals(TypeCard.MASTER))
+                .map(card -> card.getBalance())
+                //.map(Card::getBalance) //the same
                 .forEach(System.out::println);
-
-        System.out.println("~~~ Filter with Condition ~~~");
 
         getCards().stream()
-                .filter(card -> {
-                    if(card.getBalance() == 0) {
-                        //TODO: send notification
-                        return true;
+                .map(card -> {
+                    if(!card.isActive()) {
+                        //TODO: something
                     }
-                    return false;
-                })
-                .forEach(System.out::println);
-
+                    return new Date();
+                }).forEach(System.out::println);
     }
 
-
-
     private static List<Card> getCards() {
-        return List.of(
+        return Arrays.asList(
                 new Card("Sergiu Noroc", "1234-1234-1234-1234", 566, 10000, true, TypeCard.VISA, List.of()),
                 new Card("Mihai Vozian", "3456-3456-3456-3456", 589, 8000, true, TypeCard.VISA, List.of()),
                 new Card("Dumitru Cazacu", "9876-9876-9876-9876", 963, 5000, true, TypeCard.MASTER, List.of()),

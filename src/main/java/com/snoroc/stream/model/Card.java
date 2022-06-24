@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @ToString
 @AllArgsConstructor
@@ -17,5 +19,6 @@ public class Card {
     private int balance;
     private boolean isActive;
     private TypeCard typeCard;
+    List<CardTransaction> cardTransactions;
 
 }
